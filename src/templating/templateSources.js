@@ -33,7 +33,8 @@
 
     ko.templateSources.domElement.prototype['text'] = function(/* valueToWrite */) {
         var tagNameLower = ko.utils.tagNameLower(this.domElement),
-            elemContentsProperty = tagNameLower === "script" ? "text"
+            elemContentsProperty = tagNameLower === "script" && ko.utils.ieVersion <= 8 ? "textContent"
+                                 : tagNameLower === "script" ? "text"
                                  : tagNameLower === "textarea" ? "value"
                                  : "innerHTML";
 
